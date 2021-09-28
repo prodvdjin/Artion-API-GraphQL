@@ -17,7 +17,12 @@ type Query {
 
 # Mutation endpoints for modifying the data
 type Mutation {
-    # SendTransaction submits a raw signed transaction into the block chain.
-    # The tx parameter represents raw signed and RLP encoded transaction data.
-    pushTestingData: String
+    # Load testing data into db - ONLY FOR TESTING, TO BE REMOVED FOR PRODUCTION!
+    pushTestingData: String!
+
+    # Generate login challenge, to be signed by client and passed into login mutation
+    generateLoginChallenge(user: Address!): String!
+
+    # Use signed login challenge to obtain Bearer token
+    generateBearer(user: Address!, signedLoginChallenge: String!): String!
 }
